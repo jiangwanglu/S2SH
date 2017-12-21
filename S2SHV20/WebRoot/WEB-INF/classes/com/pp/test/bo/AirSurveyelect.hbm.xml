@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+        
+<hibernate-mapping>
+
+	<class name="com.pp.test.bo.AirSurveyelect" table="airsureye">
+	
+		<id name="ID" column="ID" >
+			<generator class="native" />
+		</id>
+		
+		<property name="dianliuA" />
+		<property name="dianliuB" />
+		<property name="dianliuC" />
+		<property name="wenduldj" />
+		<property name="wenduldc" />
+		<property name="wendulqj" />
+		<property name="wendulqc" />
+		<property name="dianliang" />
+		<property name="date" />
+		<property name="time"/>
+		<property name="machine"/>
+		
+	</class>
+</hibernate-mapping>

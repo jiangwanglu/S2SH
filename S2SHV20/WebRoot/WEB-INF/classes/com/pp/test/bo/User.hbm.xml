@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+        
+<hibernate-mapping>
+
+	<class name="com.pp.test.bo.User" table="demo_user">
+	
+		<id name="user_id" column="user_id" length="32">
+			<generator class="native" />
+		</id>
+		
+		<property name="userName" column="user_name"/>
+		<property name="sex" length="2" column="user_sex"/>
+		<property name="age" column="user_age"/>
+		<property name="address" column="user_address"/>
+		
+	</class>
+</hibernate-mapping>

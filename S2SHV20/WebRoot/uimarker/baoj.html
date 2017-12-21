@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="../jedate/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../jedate/jquery.jedate.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../jedate/skin/jedate.css">
+<link type="text/css" rel="stylesheet" href="../css/calander.css">
+<link type="text/css" rel="stylesheet" href="../css/demo.css">
+<style type="text/css">
+	#flot-line-chart-moving1{
+		position:absolute;
+		left:840px;
+		top:90px
+	}
+	#flot-line-chart-moving2{
+		position:absolute;
+		top:480px
+	}
+  .demo-input{padding-left: 10px; height: 38px; min-width: 262px; line-height: 38px; border: 1px solid #e6e6e6;  background-color: #fff;  border-radius: 2px;}
+</style>
+</head>
+<body>
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    </ul>
+    </div>
+    <div class="rightinfo">
+    <div class="tools">
+    	<ul class="toolbar">
+	        <li><a href= "../view/baoj/monthrundate.jsp?name=0" target= "J_iframe">周<span><img src="imagesJL/baoj.png" /></span></a></li>
+	        <li><a href= "../view/baoj/monthrundate.jsp?name=1" target= "J_iframe">月<span><img src="imagesJL/baoj.png" /></span></a></li>
+	        <li><a href= "../view/baoj/monthrundate.jsp?name=2" target= "J_iframe">年<span><img src="imagesJL/baoj.png" /></span></a></li>
+        </ul>
+    </div>
+    <div id="flot-line-chart-moving" style="height:810px;width:99%;background-color: #ebebeb">
+		<iframe id='J_iframes' name='J_iframe' width='100%' height='100%' src='../view/baoj/monthrundate.jsp?name=0' frameborder='0' data-id='index_v1.html' seamless></iframe>             
+    </div>
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="js/jquery.js"></script>
+
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+
+
+</head>
+
+<body style="background:#f0f9fd;">
+	<div class="lefttop"><span></span>鼎丰大厦</div>
+    
+    <dl class="leftmenu">
+        
+    <dd>
+    <div class="title">
+    <span><img src="images/leftico01.png" /></span>报表系统
+    </div>
+    	<ul class="menuson">
+        <li class="active"><cite></cite><a href="../index_v1.html" target="rightFrame">首页</a><i></i></li>
+        <li><cite></cite><a href="right-nh.html" target="rightFrame">能耗</a><i></i></li>
+        <li ><cite></cite><a href="right.html" target="rightFrame">配电</a><i></i></li>
+        <li><cite></cite><a href="right-kt.html" target="rightFrame">空调</a><i></i></li>
+        <li><cite></cite><a href="baoj.html" target="rightFrame">报警</a><i></i></li>
+        <li><cite></cite><a href="../view/paging-dl/alarmtableindex.jsp" target="rightFrame">报警信息</a><i></i></li>
+        <li><cite></cite><a href="http://localhost:8080/S2SH4/uimarker/plan.html" target="rightFrame">设备房巡检完成率</a><i></i></li>
+        <li><cite></cite><a href="http://localhost:8080/S2SH4/uimarker/rundate.html" target="rightFrame">运行时间</a><i></i></li>
+        </ul>    
+    </dd>
+        
+    
+    <dd>
+    <div class="title">
+    <span><img src="images/leftico02.png" /></span>设备巡查
+    </div>
+    <ul class="menuson">
+        <li><cite></cite><a href="#">设备信息</a><i></i></li>
+        <li><cite></cite><a href="#">发布信息</a><i></i></li>
+        <li><cite></cite><a href="#">巡查日志</a><i></i></li>
+        </ul>     
+    </dd> 
+    
+    
+    <dd><div class="title"><span><img src="images/leftico03.png" /></span>管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="#">自定义</a><i></i></li>
+        <li><cite></cite><a href="#">常用资料</a><i></i></li>
+        <li><cite></cite><a href="#">信息列表</a><i></i></li>
+        <li><cite></cite><a href="#">其他</a><i></i></li>
+    </ul>    
+    </dd>  
+    
+    
+    <dd><div class="title"><span><img src="images/leftico04.png" /></span>日期管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="#">自定义</a><i></i></li>
+        <li><cite></cite><a href="#">常用资料</a><i></i></li>
+        <li><cite></cite><a href="#">信息列表</a><i></i></li>
+        <li><cite></cite><a href="#">其他</a><i></i></li>
+    </ul>
+    
+    </dd>   
+    
+    </dl>
+    
+</body>
+</html>

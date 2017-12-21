@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 配电-电流</title>
+
+    <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
+    <script type="text/javascript" src="../../jedate/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="../../jedate/jquery.jedate.js"></script>
+	<link type="text/css" rel="stylesheet" href="../../jedate/skin/jedate.css">
+	<link type="text/css" rel="stylesheet" href="../../css/calander.css">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <h2>选择时间和类别</h2>
+                    
+                    <div style="width:100%; margin-bottom:50px; overflow:hidden;">
+                    <ul>
+    					<li class="datep"><input class="datainp wicon" id="date01" type="text" placeholder="YYYY-MM-DD hh:mm:ss" value=""  readonly></li>
+    					
+    					<input name="button" type="button" onClick='additem()' value="确定"> 
+
+					</ul>
+					</div>
+				</div>
+            </div>
+            <div class="col-sm-9">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>统计电流 <small class="m-l-sm">其他显示方式 - <a target="_blank" href="http://fortawesome.github.io/Font-Awesome/icons/">统计表</a> </small></h5>
+                        
+                    </div>
+                    <div class="ibox-content" style="border-top:none;">
+                                <div id="flot-line-chart-moving" style="height:450px;">
+                                
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script type="text/javascript">
+    var time="";
+    var time="";
+	$("#date01").jeDate({
+    	festival:false,
+    	ishmsVal:false,
+    	minDate: $.nowDate(-2),
+    	maxDate: $.nowDate(0),
+    	format:"YYYY-MM-DD hh:mm:ss",
+    	zIndex:300,
+    	choosefun:function(val){time=val.context.value},
+    	okfun:function(val){time=$("#date01").val()}
+	});
+	function additem() {
+	alert("additem");
+	document.getElementById('flot-line-chart-moving').innerHTML = "<iframe id='J_iframe' width='100%' height='100%' src='index.jsp' frameborder='0' data-id='index_v1.html' seamless></iframe>";
+	};
+	</script>
+
+    
+    
+</body>
+
+
+</html>

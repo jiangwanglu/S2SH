@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="  
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd  
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"> 
+
+	<!--  
+	<aop:config proxy-target-class="true"></aop:config> 
+	<aop:aspectj-autoproxy/>
+	-->
+	
+	 <context:annotation-config />
+	
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxIdle" value="${maxIdle}" />
+		<property name="minIdle" value="${minIdle}" />
+	</bean>
+	<!-- sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.hbm2ddl.auto=update hibernate.show_sql=true
+				hibernate.format_sql=true
+				hibernate.cache.use_second_level_cache=true
+				hibernate.cache.use_query_cache=true
+				hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
+				hibernate.cache.use_second_level_cache=false
+				hibernate.cache.use_query_cache=false
+			</value>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/pp/test/bo/User.hbm.xml</value>
+				<value>com/pp/test/bo/Electric.hbm.xml</value>
+				<value>com/pp/test/bo/AirElectric.hbm.xml</value>
+				<value>com/pp/test/bo/Dianlang.hbm.xml</value>
+				<value>com/pp/test/bo/Surveyelect.hbm.xml</value>
+				<value>com/pp/test/bo/AirSurveyelect.hbm.xml</value>
+				<value>com/pp/test/bo/Fuzai.hbm.xml</value>
+				<value>com/pp/test/bo/Nownh.hbm.xml</value>
+				<value>com/pp/test/bo/Alarmifo.hbm.xml</value>
+				<value>com/pp/test/bo/Power.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- 定义DAO模板 -->
+	<bean name="daoTemplate" abstract="true">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- jdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	        <property name="dataSource"><ref bean="dataSource" /></property>
+	</bean>
+	
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">readOnly</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="modify*">
+					PROPAGATION_REQUIRED,-Exception
+				</prop>
+				<prop key="update*">
+					PROPAGATION_REQUIRED,-Exception
+				</prop>
+				<prop key="delete*">
+					PROPAGATION_REQUIRED,-Exception
+				</prop>
+				<prop key="remove*">
+					PROPAGATION_REQUIRED,-Exception
+				</prop>
+				<prop key="query*">
+					PROPAGATION_REQUIRED, readOnly,-Exception
+				</prop>
+				<prop key="load*">
+					PROPAGATION_REQUIRED, -Exception
+				</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 自动代理 -->
+	<bean id="autoproxy"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 可以是Service或DAO层（最好是针对业务层*Service） -->
+		<property name="beanNames">
+			<list>
+				<value>*ServiceImpl</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- BaseDaoImpl.java -->
+	<!-- 注入jdbcTemplate -->
+	<bean id="baseDao" class="com.myapp.common.dao.BaseDaoImpl" parent="daoTemplate">
+   			<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+   	</bean>
+   	<bean id="baseService"
+		class="com.myapp.common.service.BaseServiceImpl">
+		<property name="baseDao">
+			<ref bean="baseDao" />
+		</property>
+	</bean>
+	
+	<bean id="userDao" class="com.pp.test.dao.UserDaoImpl" parent="baseDao"/>
+	
+   	<bean id="userService"
+		class="com.pp.test.service.UserServiceImpl">
+		<property name="userDao">
+			<ref bean="userDao" />
+		</property>
+	</bean>
+	<bean id="userActionBean"
+		class="com.pp.test.action.UserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	
+	<bean id="loadDataDao" class="com.pp.test.dao.LoadDataDaoImpl" parent="baseDao"/>
+	
+   	<bean id="loadDataService"
+		class="com.pp.test.service.LoadDataServiceImpl">
+		<property name="loadDataDao">
+			<ref bean="loadDataDao" />
+		</property>
+	</bean>
+	<bean id="loadDataActionBean" 
+		class="com.pp.test.action.LoadDataAction">
+		<property name="loadDataService">
+			<ref bean="loadDataService" />
+		</property>
+	</bean>
+	
+	<bean id="loadFuzaiDao" class="com.pp.test.dao.LoadFuzaiDaoImpl" parent="baseDao"/>
+	
+   	<bean id="loadFuzaiService"
+		class="com.pp.test.service.LoadFuzaiServiceImpl">
+		<property name="loadFuzaiDao">
+			<ref bean="loadFuzaiDao" />
+		</property>
+	</bean>
+	<bean id="loadFuzaiActionBean" 
+		class="com.pp.test.action.LoadDataAction">
+		<property name="loadFuzaiService">
+			<ref bean="loadFuzaiService" />
+		</property>
+	</bean>
+	
+	<bean id="LoadSurveyelectDao" class="com.pp.test.dao.LoadSurveyelectDaoImpl" parent="baseDao"/>
+	<bean id="LoadSurveyelectService"
+		class="com.pp.test.service.LoadSurveyelectServiceImpl">
+		<property name="LoadSurveyelectDao">
+			<ref bean="LoadSurveyelectDao" />
+		</property>
+	</bean>
+	<bean id="loadSurveyelectActionBean" 
+		class="com.pp.test.action.LoadDataAction">
+		<property name="LoadSurveyelectService">
+			<ref bean="LoadSurveyelectService" />
+		</property>
+	</bean>
+	
+	<bean id="loadDianDao" class="com.pp.test.dao.LoadDianDaoImpl" parent="baseDao"/>
+	
+   	<bean id="loadDianService"
+		class="com.pp.test.service.LoadDianServiceImpl">
+		<property name="loadDianDao">
+			<ref bean="loadDianDao" />
+		</property>
+	</bean>
+	<bean id="LoadDianliangAction" 
+		class="com.pp.test.action.LoadDianliangAction">
+		<property name="loadDianService">
+			<ref bean="loadDianService" />
+		</property>
+	</bean>
+   	
+   	
+</beans>

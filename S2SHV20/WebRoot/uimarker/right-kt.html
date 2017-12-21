@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="../jedate/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../jedate/jquery.jedate.js"></script>
+<link type="text/css" rel="stylesheet" href="../jedate/skin/jedate.css">
+<link type="text/css" rel="stylesheet" href="../css/calander.css">
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+  showfram();
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+function showfram(){
+	
+}
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>en位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <div class="tools">
+    
+    	<ul class="toolbar">
+        <!-- <li class="click"><span><img src="images/t01.png" /></span>当日电流信息</li> -->
+        
+        <li><span><img src="images/t01.png" /></span><a href= "../view/paging-dl/airsurveyeindex.jsp" target= "J_iframe">空调当日电流及温度</a> </li>
+        <li><span><img src="images/t04.png" /></span><a href= "../view/paging-dl/airindex.jsp" target= "J_iframe">空调瞬时电流</a> </li>
+        <li><span><img src="images/t02.png" /></span><a href= "../view/paging-dl/airsurveyedateindex.jsp" target= "J_iframe">空调历史日电流信息</a> </li>
+        
+        </ul>
+        
+        
+        <ul class="toolbar1">
+        <li><span><img src="images/t05.png" /></span>切换表格显示</li>
+        </ul>
+    
+    </div>
+
+    <div id="flot-line-chart-moving" style="height:1000px;background-color: #ebebeb">
+                   <iframe id='J_iframe' name='J_iframe' width='100%' height='100%' src='../view/paging-dl/airsurveyeindex.jsp' frameborder='0' data-id='index_v1.html' seamless></iframe>             
+    </div>
+
+</body>
+
+</html>
