@@ -128,7 +128,6 @@ public class LoadDataAction implements ServletRequestAware{
         calendar1.add(Calendar.MONTH, 1);
         calendar1.add(Calendar.DAY_OF_MONTH, -1);
     	Date end = calendar1.getTime();
-    	System.out.println(format.format(end));
     	Calendar   calendar3   =   new   GregorianCalendar(); 
     	calendar3.setTime(end); 
     	calendar3.add(calendar.DATE,1);
@@ -336,24 +335,6 @@ public class LoadDataAction implements ServletRequestAware{
 	public void setLoadSurveyelectService(
 		LoadSurveyelectService loadSurveyelectService) {
 		this.loadSurveyelectService = loadSurveyelectService;
-	}
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String j = "-2";
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(date);
-		c.add(Calendar.MONTH, Integer.parseInt(j));
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		Date start = c.getTime();
-		
-		Calendar a=Calendar.getInstance();
-		a.setTime(start);
-		a.set(Calendar.DATE, 1);//把日期设置为当月第一天
-		a.roll(Calendar.DATE, -1);//日期回滚一天，也就是最后一天
-		Date end = a.getTime();
-		System.out.println("该月最大天数:"+format.format(end));
-		
 	}
 	public String baoj() throws Exception{
 		String date = request.getParameter("date");
